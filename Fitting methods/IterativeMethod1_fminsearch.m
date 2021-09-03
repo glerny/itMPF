@@ -9,7 +9,7 @@
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [Model, FittedChannels, Stats, myModel, Options] = IterativeMethod_1(AxisX, Data, Options)
+function [Model, FittedChannels, Stats, myModel, Options] = IterativeMethod1_fminsearch(AxisX, Data, Options)
 
 %TODO: catch rank deficiency warnings
 tic
@@ -78,8 +78,6 @@ if Options.Constrained.SharedParameters == "Full"
     % All fitting parameters (a2, a2,...) are equals in all
     % 1. Find 1st Local maximum and peak variance
     tData = mean(Data, 2);
-    [Val4Max, Id4Max] = max(smoothdata(tData, 'movmean', Options.PointsPerPeaks));
-    % averaged over all channels smoothed (to remove spikes) profile
     
     switch Options.Function
         case "Gauss"
@@ -252,7 +250,7 @@ else
     
     % variance
     tData = mean(Data, 2);
-    [Val4Max, Id4Max] = max(smoothdata(tData, 'movmean', Options.PointsPerPeaks));
+    [Val4Max, Id4Max] = max(tData);
     
     % finding the peak width at half height
     is = find(tData(1:Id4Max) <= Val4Max/2, 1, 'last');

@@ -78,8 +78,6 @@ if Options.Constrained.SharedParameters == "Full"
     % All fitting parameters (a2, a2,...) are equals in all
     % 1. Find 1st Local maximum and peak variance
     tData = mean(Data, 2);
-    [Val4Max, Id4Max] = max(tData);
-    % averaged over all channels smoothed (to remove spikes) profile
     
     switch Options.Function
         case "Gauss"
